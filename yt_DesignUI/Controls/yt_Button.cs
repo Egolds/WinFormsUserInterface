@@ -12,6 +12,8 @@ namespace yt_DesignUI
         private bool MouseEntered = false;
         private bool MousePressed = false;
 
+        Animation CurtainButtonAnim = new Animation();
+
         public yt_Button()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw | ControlStyles.SupportsTransparentBackColor | ControlStyles.UserPaint, true);
@@ -36,15 +38,15 @@ namespace yt_DesignUI
             graph.Clear(Parent.BackColor);
 
             Rectangle rect = new Rectangle(0, 0, Width - 1, Height - 1);
+            Rectangle rectCurtain = new Rectangle(0, 0, (int)CurtainButtonAnim.Value, Height - 1);
 
+            // Основной прямоугольник (Фон)
             graph.DrawRectangle(new Pen(BackColor), rect);
             graph.FillRectangle(new SolidBrush(BackColor), rect);
 
-            if (MouseEntered)
-            {
-                graph.DrawRectangle(new Pen(Color.FromArgb(60, Color.White)), rect);
-                graph.FillRectangle(new SolidBrush(Color.FromArgb(60, Color.White)), rect);
-            }
+            // Рисуем доп. прямоугольник (Наша шторка)
+            graph.DrawRectangle(new Pen(Color.FromArgb(60, Color.White)), rectCurtain);
+            graph.FillRectangle(new SolidBrush(Color.FromArgb(60, Color.White)), rectCurtain);
 
             if (MousePressed)
             {
@@ -55,13 +57,30 @@ namespace yt_DesignUI
             graph.DrawString(Text, Font, new SolidBrush(ForeColor), rect, SF);
         }
 
+        private void ButtonCurtainAction()
+        {
+            if (MouseEntered)
+            {
+                CurtainButtonAnim = new Animation("ButtonCurtain_" + Handle, Invalidate, CurtainButtonAnim.Value, Width - 1);
+            }
+            else
+            {
+                CurtainButtonAnim = new Animation("ButtonCurtain_" + Handle, Invalidate, CurtainButtonAnim.Value, 0);
+            }
+
+            CurtainButtonAnim.StepDivider = 8;
+            Animator.Request(CurtainButtonAnim, true);
+        }
+
         protected override void OnMouseEnter(EventArgs e)
         {
             base.OnMouseEnter(e);
 
             MouseEntered = true;
 
-            Invalidate();
+            ButtonCurtainAction();
+
+            //Invalidate();
         }
 
         protected override void OnMouseLeave(EventArgs e)
@@ -70,7 +89,9 @@ namespace yt_DesignUI
 
             MouseEntered = false;
 
-            Invalidate();
+            ButtonCurtainAction();
+
+            //Invalidate();
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
