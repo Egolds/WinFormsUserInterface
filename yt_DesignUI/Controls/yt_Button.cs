@@ -13,6 +13,9 @@ namespace yt_DesignUI
         private bool MousePressed = false;
 
         Animation CurtainButtonAnim = new Animation();
+        Animation RippleButtonAnim = new Animation();
+
+        Point ClickLocation = new Point();
 
         public yt_Button()
         {
@@ -39,6 +42,12 @@ namespace yt_DesignUI
 
             Rectangle rect = new Rectangle(0, 0, Width - 1, Height - 1);
             Rectangle rectCurtain = new Rectangle(0, 0, (int)CurtainButtonAnim.Value, Height - 1);
+            Rectangle rectRipple = new Rectangle(
+                ClickLocation.X - (int)RippleButtonAnim.Value / 2,
+                ClickLocation.Y - (int)RippleButtonAnim.Value / 2,
+                (int)RippleButtonAnim.Value,
+                (int)RippleButtonAnim.Value
+                );
 
             // Основной прямоугольник (Фон)
             graph.DrawRectangle(new Pen(BackColor), rect);
@@ -48,13 +57,34 @@ namespace yt_DesignUI
             graph.DrawRectangle(new Pen(Color.FromArgb(60, Color.White)), rectCurtain);
             graph.FillRectangle(new SolidBrush(Color.FromArgb(60, Color.White)), rectCurtain);
 
-            if (MousePressed)
+            // Стандартное рисование праямоугольника при клике
+            //if (MousePressed)
+            //{
+            //    graph.DrawRectangle(new Pen(Color.FromArgb(30, Color.Black)), rect);
+            //    graph.FillRectangle(new SolidBrush(Color.FromArgb(30, Color.Black)), rect);
+            //}
+
+            // Ripple Effect - Волна
+            if(RippleButtonAnim.Value > 0 && RippleButtonAnim.Value < RippleButtonAnim.TargetValue)
             {
-                graph.DrawRectangle(new Pen(Color.FromArgb(30, Color.Black)), rect);
-                graph.FillRectangle(new SolidBrush(Color.FromArgb(30, Color.Black)), rect);
+                graph.DrawEllipse(new Pen(Color.FromArgb(30, Color.Black)), rectRipple);
+                graph.FillEllipse(new SolidBrush(Color.FromArgb(30, Color.Black)), rectRipple);
+            }
+            else if(RippleButtonAnim.Value == RippleButtonAnim.TargetValue)
+            {
+                
+                RippleButtonAnim.Value = 0;
             }
 
             graph.DrawString(Text, Font, new SolidBrush(ForeColor), rect, SF);
+        }
+
+        private void ButtonRippleAction()
+        {
+            RippleButtonAnim = new Animation("ButtonRipple_" + Handle, Invalidate, 0, Width);
+
+            RippleButtonAnim.StepDivider = 14;
+            Animator.Request(RippleButtonAnim, true);
         }
 
         private void ButtonCurtainAction()
@@ -100,7 +130,12 @@ namespace yt_DesignUI
 
             MousePressed = true;
 
-            Invalidate();
+            CurtainButtonAnim.Value = CurtainButtonAnim.TargetValue;
+
+            ClickLocation = e.Location;
+            ButtonRippleAction();
+
+            //Invalidate();
         }
 
         protected override void OnMouseUp(MouseEventArgs e)
@@ -109,7 +144,7 @@ namespace yt_DesignUI
 
             MousePressed = false;
 
-            Invalidate();
+            //Invalidate();
         }
     }
 }
