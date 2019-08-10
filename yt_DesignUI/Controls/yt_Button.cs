@@ -81,7 +81,7 @@ namespace yt_DesignUI
 
         private void ButtonRippleAction()
         {
-            RippleButtonAnim = new Animation("ButtonRipple_" + Handle, Invalidate, 0, Width);
+            RippleButtonAnim = new Animation("ButtonRipple_" + Handle, Invalidate, 0, Width * 2);
 
             RippleButtonAnim.StepDivider = 14;
             Animator.Request(RippleButtonAnim, true);
