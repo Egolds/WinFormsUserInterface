@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -7,6 +8,15 @@ namespace yt_DesignUI
 {
     public class yt_Button : Control
     {
+        #region -- Свойства --
+
+        [Description("Текст, отображаемый при наведении курсора")]
+        public string TextHover { get; set; }
+
+        #endregion
+
+        #region -- Переменные --
+
         private StringFormat SF = new StringFormat();
 
         private bool MouseEntered = false;
@@ -14,8 +24,11 @@ namespace yt_DesignUI
 
         Animation CurtainButtonAnim = new Animation();
         Animation RippleButtonAnim = new Animation();
+        Animation TextSlideAnim = new Animation();
 
         Point ClickLocation = new Point();
+
+        #endregion
 
         public yt_Button()
         {
@@ -23,6 +36,8 @@ namespace yt_DesignUI
             DoubleBuffered = true;
 
             Size = new Size(100, 30);
+
+            Font = new Font("Verdana", 8.25F, FontStyle.Regular);
 
             BackColor = Color.Tomato;
             ForeColor = Color.White;
@@ -48,6 +63,8 @@ namespace yt_DesignUI
                 (int)RippleButtonAnim.Value,
                 (int)RippleButtonAnim.Value
                 );
+            Rectangle rectText = new Rectangle((int)TextSlideAnim.Value, rect.Y, rect.Width, rect.Height);
+            Rectangle rectTextHover = new Rectangle((int)TextSlideAnim.Value - rect.Width, rect.Y, rect.Width, rect.Height);
 
             // Основной прямоугольник (Фон)
             graph.DrawRectangle(new Pen(BackColor), rect);
@@ -72,11 +89,35 @@ namespace yt_DesignUI
             }
             else if(RippleButtonAnim.Value == RippleButtonAnim.TargetValue)
             {
-                
+                // Тут можно добавить проверку MousePressed, если false тогда обнуляем
                 RippleButtonAnim.Value = 0;
             }
 
-            graph.DrawString(Text, Font, new SolidBrush(ForeColor), rect, SF);
+            // Рисуем текст
+            if (string.IsNullOrEmpty(TextHover))
+            {
+                graph.DrawString(Text, Font, new SolidBrush(ForeColor), rect, SF);
+            }
+            else
+            {
+                graph.DrawString(Text, Font, new SolidBrush(ForeColor), rectText, SF);
+                graph.DrawString(TextHover, Font, new SolidBrush(ForeColor), rectTextHover, SF);
+            }
+        }
+
+        private void TextSlideAction()
+        {
+            if (MouseEntered)
+            {
+                TextSlideAnim = new Animation("TextSlide_" + Handle, Invalidate, TextSlideAnim.Value, Width - 1);
+            }
+            else
+            {
+                TextSlideAnim = new Animation("TextSlide_" + Handle, Invalidate, TextSlideAnim.Value, 0);
+            }
+
+            TextSlideAnim.StepDivider = 8;
+            Animator.Request(TextSlideAnim, true);
         }
 
         private void ButtonRippleAction()
@@ -109,8 +150,7 @@ namespace yt_DesignUI
             MouseEntered = true;
 
             ButtonCurtainAction();
-
-            //Invalidate();
+            TextSlideAction();
         }
 
         protected override void OnMouseLeave(EventArgs e)
@@ -120,8 +160,7 @@ namespace yt_DesignUI
             MouseEntered = false;
 
             ButtonCurtainAction();
-
-            //Invalidate();
+            TextSlideAction();
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -134,8 +173,6 @@ namespace yt_DesignUI
 
             ClickLocation = e.Location;
             ButtonRippleAction();
-
-            //Invalidate();
         }
 
         protected override void OnMouseUp(MouseEventArgs e)
@@ -143,8 +180,6 @@ namespace yt_DesignUI
             base.OnMouseUp(e);
 
             MousePressed = false;
-
-            //Invalidate();
         }
     }
 }
