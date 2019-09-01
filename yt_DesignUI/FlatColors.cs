@@ -24,5 +24,6 @@ namespace EgoldsUI
 
         public static Color Gray = ColorTranslator.FromHtml("#bdc3c7");
         public static Color GrayDark = ColorTranslator.FromHtml("#7f8c8d");
+        public static Color GrayLight = ColorTranslator.FromHtml("#ecf0f1");
     }
 }
