@@ -173,6 +173,8 @@ namespace yt_DesignUI
 
             ClickLocation = e.Location;
             ButtonRippleAction();
+
+            Focus();
         }
 
         protected override void OnMouseUp(MouseEventArgs e)
