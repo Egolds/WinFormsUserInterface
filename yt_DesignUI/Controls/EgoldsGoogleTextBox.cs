@@ -43,8 +43,14 @@ namespace yt_DesignUI
             set => tbInput.UseSystemPasswordChar = value;
         }
 
-        [Browsable(false)]
-        public new string Text { get; set; }
+        //[Browsable(false)]
+        //public new string Text { get; set; }
+        
+        public new string Text
+        {
+            get => tbInput.Text;
+            set => tbInput.Text = value;
+        }
 
         #endregion
 
