@@ -3,10 +3,13 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using System.Design;
+using System.Windows.Forms.Design;
 using EgoldsUI;
 
 namespace yt_DesignUI
 {
+    [Designer(typeof(ControlDesignerEx))] // ControlDesignerEx Добавляем для ограничения изменения размеров
     [DefaultProperty("TextPreview")]
     public class EgoldsGoogleTextBox : Control
     {
@@ -26,7 +29,20 @@ namespace yt_DesignUI
         #region -- Свойства --
 
         public string TextPreview { get; set; } = "Input text";
-        public Font FontTextPreview { get; set; } = new Font("Arial", 8, FontStyle.Bold);
+
+        private Font fontTextPreview = new Font("Arial", 8, FontStyle.Bold);
+        public Font FontTextPreview
+        {
+            get => fontTextPreview;
+            set
+            {
+                // Ограничение, чтобы размер шрифта заголовка нельзя было установить больше, 
+                // чем размер основного шрифта
+                if(value.Size >= Font.Size )
+                    return;
+                fontTextPreview = value;
+            }
+        } 
 
         public Color BorderColor { get; set; } = FlatColors.Blue;
         public Color BorderColorNotActive { get; set; } = FlatColors.GrayDark;
@@ -34,7 +50,11 @@ namespace yt_DesignUI
         public string TextInput
         {
             get => tbInput.Text;
-            set => tbInput.Text = value;
+            set
+            {
+                tbInput.Text = value;
+                Refresh();
+            }
         }
 
         public bool UseSystemPasswordChar
@@ -49,7 +69,11 @@ namespace yt_DesignUI
         public new string Text
         {
             get => tbInput.Text;
-            set => tbInput.Text = value;
+            set
+            {
+                tbInput.Text = value;
+                Refresh();
+            }
         }
 
         #endregion
@@ -58,7 +82,7 @@ namespace yt_DesignUI
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw | ControlStyles.SupportsTransparentBackColor | ControlStyles.UserPaint, true);
             DoubleBuffered = true;
-
+            
             Size = new Size(150, 40);
             Font = new Font("Arial", 11.25F, FontStyle.Regular);
             ForeColor = Color.Black;
@@ -169,7 +193,7 @@ namespace yt_DesignUI
 
             // Цвет внутри
             graph.FillRectangle(new SolidBrush(BackColor), rectBase);
-
+            
             graph.DrawString(TextPreview, FontTextPreviewActual, new SolidBrush(tbInput.Focused == true ? BorderColor : BorderColorNotActive), rectTextPreview, SF);
         }
 
@@ -219,6 +243,21 @@ namespace yt_DesignUI
             base.OnMouseClick(e);
 
             TextPreviewAction(true);
+        }
+
+        /// <summary>
+        /// В этом классе переопределяем SelectionRules, и даем возможность только изменять ширину и перемещать объект
+        /// </summary>
+        class ControlDesignerEx : ControlDesigner
+        {
+            public override SelectionRules SelectionRules
+            {
+                get
+                {
+                    SelectionRules sr = SelectionRules.LeftSizeable | SelectionRules.RightSizeable | SelectionRules.Moveable | SelectionRules.Visible;
+                    return sr;
+                }
+            }
         }
     }
 }
