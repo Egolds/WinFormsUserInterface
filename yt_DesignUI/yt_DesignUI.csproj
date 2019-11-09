@@ -47,6 +47,12 @@
   <ItemGroup>
     <Compile Include="Animation\Animation.cs" />
     <Compile Include="Animation\Animator.cs" />
+    <Compile Include="Components\RoundingButtonsComponent.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\RoundingButtonsComponent.Designer.cs">
+      <DependentUpon>RoundingButtonsComponent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\EgoldsCard.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -62,6 +68,7 @@
     <Compile Include="Controls\EgoldsGoogleTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Drawer.cs" />
     <Compile Include="FlatColors.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
