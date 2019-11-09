@@ -13,6 +13,36 @@ namespace yt_DesignUI
         [Description("Текст, отображаемый при наведении курсора")]
         public string TextHover { get; set; }
 
+        private bool roundingEnable = false;
+        [Description("Вкл/Выкл закругление объекта")]
+        public bool RoundingEnable
+        {
+            get => roundingEnable;
+            set
+            {
+                roundingEnable = value;
+                Refresh();
+            }
+        }
+
+        private int roundingPercent = 100;
+        [DisplayName("Rounding [%]")]
+        [DefaultValue(100)]
+        [Description("Указывает радиус закругления объекта в процентном соотношении")]
+        public int Rounding
+        {
+            get => roundingPercent;
+            set
+            {
+                if(value >= 0 && value <= 100)
+                {
+                    roundingPercent = value;
+
+                    Refresh();
+                }
+            }
+        }
+
         #endregion
 
         #region -- Переменные --
@@ -66,9 +96,19 @@ namespace yt_DesignUI
             Rectangle rectText = new Rectangle((int)TextSlideAnim.Value, rect.Y, rect.Width, rect.Height);
             Rectangle rectTextHover = new Rectangle((int)TextSlideAnim.Value - rect.Width, rect.Y, rect.Width, rect.Height);
 
+            // Закругление
+            float roundingValue = 0.1F;
+            if(RoundingEnable && roundingPercent > 0)
+            {
+                roundingValue = Height / 100F * roundingPercent;
+            }
+            GraphicsPath rectPath = Drawer.RoundedRectangle(rect, roundingValue);
+
             // Основной прямоугольник (Фон)
-            graph.DrawRectangle(new Pen(BackColor), rect);
-            graph.FillRectangle(new SolidBrush(BackColor), rect);
+            graph.DrawPath(new Pen(BackColor), rectPath);
+            graph.FillPath(new SolidBrush(BackColor), rectPath);
+
+            graph.SetClip(rectPath);
 
             // Рисуем доп. прямоугольник (Наша шторка)
             graph.DrawRectangle(new Pen(Color.FromArgb(60, Color.White)), rectCurtain);
