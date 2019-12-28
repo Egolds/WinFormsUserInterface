@@ -114,16 +114,19 @@ namespace yt_DesignUI
 
             Rectangle rectBase = new Rectangle(0, 0, Width - 1, Height - 1);
             Rectangle rectProgress = new Rectangle(
-                rectBase.X + 1,
-                rectBase.Y + 1,
-                CalculateProgressRectSize(rectBase) - 2,
-                rectBase.Height - 2);
+                rectBase.X,
+                rectBase.Y,
+                CalculateProgressRectSize(rectBase),
+                rectBase.Height);
 
             // Рисуем основу
             DrawBase(graph, rectBase);
 
             // Рисуем прогресс
             DrawProgress(graph, rectProgress);
+
+            // Рисуем обводку
+            DrawBorder(graph, rectBase);
         }
 
         private int CalculateProgressRectSize(Rectangle rect)
@@ -136,16 +139,23 @@ namespace yt_DesignUI
         
         private void DrawBase(Graphics graph, Rectangle rect)
         {
-            graph.DrawRectangle(new Pen(BorderColor), rect);
             graph.FillRectangle(new SolidBrush(BackColor), rect);
+        }
+
+        private void DrawBorder(Graphics graph, Rectangle rect)
+        {
+            graph.DrawRectangle(new Pen(BorderColor), rect);
         }
 
         private void DrawProgress(Graphics graph, Rectangle rect)
         {
-            LinearGradientBrush LGB = new LinearGradientBrush(rect, BackColorProgressLeft, BackColorProgressRight, 360);
+            if (rect.Width > 0)
+            {
+                LinearGradientBrush LGB = new LinearGradientBrush(rect, BackColorProgressLeft, BackColorProgressRight, 360);
 
-            graph.DrawRectangle(new Pen(LGB), rect);
-            graph.FillRectangle(LGB, rect);
+                graph.DrawRectangle(new Pen(LGB), rect);
+                graph.FillRectangle(LGB, rect);
+            }
         }
 
         #endregion
