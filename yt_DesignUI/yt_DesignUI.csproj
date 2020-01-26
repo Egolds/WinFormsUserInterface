@@ -47,6 +47,12 @@
   <ItemGroup>
     <Compile Include="Animation\Animation.cs" />
     <Compile Include="Animation\Animator.cs" />
+    <Compile Include="Components\EgoldsFormStyle.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\EgoldsFormStyle.Designer.cs">
+      <DependentUpon>EgoldsFormStyle.cs</DependentUpon>
+    </Compile>
     <Compile Include="Components\RoundingButtonsComponent.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -67,6 +73,9 @@
     </Compile>
     <Compile Include="Controls\EgoldsGoogleTextBox.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ShadowedForm.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Drawer.cs" />
     <Compile Include="FlatColors.cs" />

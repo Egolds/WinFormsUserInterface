@@ -28,14 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.button1 = new System.Windows.Forms.Button();
+            this.yt_Button5 = new yt_DesignUI.yt_Button();
+            this.egoldsGoogleTextBox1 = new yt_DesignUI.EgoldsGoogleTextBox();
+            this.egoldsProgressBar1 = new yt_DesignUI.EgoldsProgressBar();
+            this.yt_Button3 = new yt_DesignUI.yt_Button();
             this.egoldsCard1 = new yt_DesignUI.EgoldsCard();
             this.yt_Button1 = new yt_DesignUI.yt_Button();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.egoldsFormStyle1 = new yt_DesignUI.Components.EgoldsFormStyle(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(433, 174);
+            this.button1.Location = new System.Drawing.Point(12, 255);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
@@ -45,6 +53,65 @@
             this.button1.Paint += new System.Windows.Forms.PaintEventHandler(this.button1_Paint);
             this.button1.MouseEnter += new System.EventHandler(this.button1_MouseEnter);
             this.button1.MouseLeave += new System.EventHandler(this.button1_MouseLeave);
+            // 
+            // yt_Button5
+            // 
+            this.yt_Button5.BackColor = System.Drawing.Color.Tomato;
+            this.yt_Button5.Font = new System.Drawing.Font("Verdana", 8.25F);
+            this.yt_Button5.ForeColor = System.Drawing.Color.White;
+            this.yt_Button5.Location = new System.Drawing.Point(12, 405);
+            this.yt_Button5.Name = "yt_Button5";
+            this.yt_Button5.RoundingEnable = true;
+            this.yt_Button5.Size = new System.Drawing.Size(157, 31);
+            this.yt_Button5.TabIndex = 11;
+            this.yt_Button5.Text = "yt_Button5";
+            this.yt_Button5.TextHover = null;
+            // 
+            // egoldsGoogleTextBox1
+            // 
+            this.egoldsGoogleTextBox1.BackColor = System.Drawing.Color.White;
+            this.egoldsGoogleTextBox1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.egoldsGoogleTextBox1.BorderColorNotActive = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
+            this.egoldsGoogleTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.egoldsGoogleTextBox1.Font = new System.Drawing.Font("Arial", 11.25F);
+            this.egoldsGoogleTextBox1.FontTextPreview = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
+            this.egoldsGoogleTextBox1.ForeColor = System.Drawing.Color.Black;
+            this.egoldsGoogleTextBox1.Location = new System.Drawing.Point(12, 359);
+            this.egoldsGoogleTextBox1.Name = "egoldsGoogleTextBox1";
+            this.egoldsGoogleTextBox1.Size = new System.Drawing.Size(157, 40);
+            this.egoldsGoogleTextBox1.TabIndex = 8;
+            this.egoldsGoogleTextBox1.TextInput = "";
+            this.egoldsGoogleTextBox1.TextPreview = "Input text";
+            this.egoldsGoogleTextBox1.UseSystemPasswordChar = false;
+            // 
+            // egoldsProgressBar1
+            // 
+            this.egoldsProgressBar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.egoldsProgressBar1.BackColorProgressLeft = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
+            this.egoldsProgressBar1.BackColorProgressRight = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(188)))), ((int)(((byte)(156)))));
+            this.egoldsProgressBar1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
+            this.egoldsProgressBar1.Location = new System.Drawing.Point(12, 333);
+            this.egoldsProgressBar1.Name = "egoldsProgressBar1";
+            this.egoldsProgressBar1.Size = new System.Drawing.Size(157, 20);
+            this.egoldsProgressBar1.Step = 10;
+            this.egoldsProgressBar1.TabIndex = 7;
+            this.egoldsProgressBar1.Text = "egoldsProgressBar1";
+            this.egoldsProgressBar1.Value = 73;
+            this.egoldsProgressBar1.ValueMaximum = 100;
+            this.egoldsProgressBar1.ValueMinimum = 0;
+            // 
+            // yt_Button3
+            // 
+            this.yt_Button3.BackColor = System.Drawing.Color.Tomato;
+            this.yt_Button3.Font = new System.Drawing.Font("Verdana", 8.25F);
+            this.yt_Button3.ForeColor = System.Drawing.Color.White;
+            this.yt_Button3.Location = new System.Drawing.Point(12, 284);
+            this.yt_Button3.Name = "yt_Button3";
+            this.yt_Button3.RoundingEnable = false;
+            this.yt_Button3.Size = new System.Drawing.Size(157, 43);
+            this.yt_Button3.TabIndex = 6;
+            this.yt_Button3.Text = "Hover me";
+            this.yt_Button3.TextHover = "You are Awesome!";
             // 
             // egoldsCard1
             // 
@@ -57,7 +124,7 @@
             this.egoldsCard1.ForeColorHeader = System.Drawing.Color.White;
             this.egoldsCard1.Location = new System.Drawing.Point(12, 12);
             this.egoldsCard1.Name = "egoldsCard1";
-            this.egoldsCard1.Size = new System.Drawing.Size(250, 200);
+            this.egoldsCard1.Size = new System.Drawing.Size(157, 200);
             this.egoldsCard1.TabIndex = 1;
             this.egoldsCard1.Text = "egoldsCard1";
             this.egoldsCard1.TextDescrition = "Your description text for this control";
@@ -66,26 +133,51 @@
             // yt_Button1
             // 
             this.yt_Button1.BackColor = System.Drawing.Color.Tomato;
+            this.yt_Button1.Font = new System.Drawing.Font("Verdana", 8.25F);
             this.yt_Button1.ForeColor = System.Drawing.Color.White;
             this.yt_Button1.Location = new System.Drawing.Point(12, 218);
             this.yt_Button1.Name = "yt_Button1";
-            this.yt_Button1.Size = new System.Drawing.Size(157, 43);
+            this.yt_Button1.RoundingEnable = false;
+            this.yt_Button1.Size = new System.Drawing.Size(157, 31);
             this.yt_Button1.TabIndex = 0;
             this.yt_Button1.Text = "yt_Button1";
+            this.yt_Button1.TextHover = null;
             this.yt_Button1.Click += new System.EventHandler(this.yt_Button1_Click);
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.Location = new System.Drawing.Point(175, 333);
+            this.trackBar1.Maximum = 100;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(104, 37);
+            this.trackBar1.TabIndex = 12;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            // 
+            // egoldsFormStyle1
+            // 
+            this.egoldsFormStyle1.Form = this;
+            this.egoldsFormStyle1.FormStyle = yt_DesignUI.Components.EgoldsFormStyle.fStyle.SimpleDark;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(794, 407);
+            this.ClientSize = new System.Drawing.Size(794, 460);
+            this.Controls.Add(this.trackBar1);
+            this.Controls.Add(this.yt_Button5);
+            this.Controls.Add(this.egoldsGoogleTextBox1);
+            this.Controls.Add(this.egoldsProgressBar1);
+            this.Controls.Add(this.yt_Button3);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.egoldsCard1);
             this.Controls.Add(this.yt_Button1);
             this.Name = "frmMain";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Главная форма";
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -94,6 +186,12 @@
         private yt_Button yt_Button1;
         private EgoldsCard egoldsCard1;
         private System.Windows.Forms.Button button1;
+        private yt_Button yt_Button3;
+        private EgoldsProgressBar egoldsProgressBar1;
+        private EgoldsGoogleTextBox egoldsGoogleTextBox1;
+        private yt_Button yt_Button5;
+        private System.Windows.Forms.TrackBar trackBar1;
+        private Components.EgoldsFormStyle egoldsFormStyle1;
     }
 }
 
