@@ -12,9 +12,12 @@ namespace yt_DesignUI
 
         Animation animCurtain;
         private float CurtainHeight;
+        private int CurtainMinHeight = 50;
 
         private bool MouseEntered = false;
         private bool MousePressed = false;
+
+        StringFormat SF = new StringFormat();
 
         #endregion
 
@@ -45,6 +48,11 @@ namespace yt_DesignUI
 
             animCurtain = new Animation();
             animCurtain.Value = CurtainHeight;
+
+            SF.Alignment = StringAlignment.Near;
+            SF.LineAlignment = StringAlignment.Near;
+
+            Cursor = Cursors.Hand;
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -58,6 +66,7 @@ namespace yt_DesignUI
 
             Rectangle rect = new Rectangle(0, 0, Width - 1, Height - 1);
             Rectangle rectCurtain = new Rectangle(0, 0, Width - 1, (int)animCurtain.Value);
+            Rectangle rectDescription = new Rectangle(15, CurtainMinHeight + 5, rect.Width - 30, rect.Height - 100);
 
             //Фон
             graph.FillRectangle(new SolidBrush(BackColor), rect);
@@ -69,10 +78,10 @@ namespace yt_DesignUI
             //Обводка
             graph.DrawRectangle(new Pen(FlatColors.Gray), rect);
 
-            if(animCurtain.Value == 50)
+            if(animCurtain.Value == CurtainMinHeight)
             {
-                graph.DrawString(TextDescrition, FontDescrition, new SolidBrush(ForeColorDescrition),
-                new Rectangle(15, 70, Width - 15, Height - 70));
+                graph.DrawString(TextDescrition, FontDescrition, new SolidBrush(ForeColorDescrition), rectDescription, SF);
+                //debug: //graph.DrawRectangle(new Pen(Color.Blue), rectDescription);
             }
 
             graph.DrawString(Text, Font, new SolidBrush(ForeColor), 15, Height - 37);
@@ -141,7 +150,7 @@ namespace yt_DesignUI
         {
             if(MouseEntered == true)
             {
-                animCurtain = new Animation("Curtain_" + Handle, Invalidate, animCurtain.Value, 50);
+                animCurtain = new Animation("Curtain_" + Handle, Invalidate, animCurtain.Value, CurtainMinHeight);
             }
             else
             {
