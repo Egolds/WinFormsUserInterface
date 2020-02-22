@@ -155,8 +155,12 @@
             // 
             // egoldsFormStyle1
             // 
+            this.egoldsFormStyle1.EnableControlBoxIconsLight = true;
+            this.egoldsFormStyle1.EnableControlBoxMouseLight = true;
             this.egoldsFormStyle1.Form = this;
             this.egoldsFormStyle1.FormStyle = yt_DesignUI.Components.EgoldsFormStyle.fStyle.SimpleDark;
+            this.egoldsFormStyle1.HeaderColor = System.Drawing.Color.DimGray;
+            this.egoldsFormStyle1.HeaderHeight = 38;
             // 
             // frmMain
             // 
