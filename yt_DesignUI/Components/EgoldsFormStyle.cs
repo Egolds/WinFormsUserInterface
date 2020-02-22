@@ -34,12 +34,21 @@ namespace yt_DesignUI.Components
             SimpleDark
         }
 
+        [Description("Указывает, включен ли эффект свечения от курсора при наведении на значки меню окна")]
+        public bool EnableControlBoxMouseLight { get; set; }
+
+        [Description("Указывает, включен ли эффект свечения от значков меню окна")]
+        public bool EnableControlBoxIconsLight { get; set; }
+
+        [Description("Высота шапки (заголовка)")]
+        public int HeaderHeight { get; set; } = 38;
+
+        [Description("Цвет шапки (заголовка)")]
+        public Color HeaderColor { get; set; } = Color.DimGray;
+
         #endregion
         #region -- Переменные --
-
-        private Color HeaderColor = Color.DimGray;
-        private int HeaderHeight = 28;
-
+        
         private Size IconSize = new Size(14, 14);
 
         private StringFormat SF = new StringFormat();
@@ -167,11 +176,16 @@ namespace yt_DesignUI.Components
                 // Close Button
                 if (rectBtnClose.Contains(e.Location))
                 {
-                    if(btnCloseHovered == false)
+                    if (btnCloseHovered == false)
                     {
                         btnCloseHovered = true;
-                        Form.Invalidate();
+
+                        if (EnableControlBoxMouseLight == false)
+                            Form.Invalidate();
                     }
+
+                    if (EnableControlBoxMouseLight == true)
+                        Form.Invalidate();
                 }
                 else
                 {
@@ -188,8 +202,13 @@ namespace yt_DesignUI.Components
                     if (btnMaximizeHovered == false)
                     {
                         btnMaximizeHovered = true;
-                        Form.Invalidate();
+
+                        if (EnableControlBoxMouseLight == false)
+                            Form.Invalidate();
                     }
+
+                    if (EnableControlBoxMouseLight == true)
+                        Form.Invalidate();
                 }
                 else
                 {
@@ -206,8 +225,13 @@ namespace yt_DesignUI.Components
                     if (btnMinimizeHovered == false)
                     {
                         btnMinimizeHovered = true;
-                        Form.Invalidate();
+
+                        if (EnableControlBoxMouseLight == false)
+                            Form.Invalidate();
                     }
+
+                    if (EnableControlBoxMouseLight == true)
+                        Form.Invalidate();
                 }
                 else
                 {
@@ -298,13 +322,14 @@ namespace yt_DesignUI.Components
 
             Rectangle rectHeader = new Rectangle(0, 0, Form.Width - 1, HeaderHeight);
             Rectangle rectBorder = new Rectangle(0, 0, Form.Width - 1, Form.Height - 1);
-
-            Rectangle rectTitleText = new Rectangle(rectHeader.X + 25, rectHeader.Y, rectHeader.Width, rectHeader.Height);
+            
             Rectangle rectIcon = new Rectangle(
                 rectHeader.Height / 2 - IconSize.Width / 2,
                 rectHeader.Height / 2 - IconSize.Height / 2,
                 IconSize.Width, IconSize.Height
                 );
+
+            Rectangle rectTitleText = new Rectangle(rectIcon.Right + 5, rectHeader.Y, rectHeader.Width, rectHeader.Height);
 
             rectBtnClose = new Rectangle(rectHeader.Width - rectHeader.Height, rectHeader.Y, rectHeader.Height, rectHeader.Height);
             Rectangle rectCrosshair = new Rectangle(
@@ -340,6 +365,12 @@ namespace yt_DesignUI.Components
                 // Кнопка [MAX]
                 graph.DrawRectangle(new Pen(btnMaximizeHovered && Form.MaximizeBox ? FlatColors.Gray : HeaderColor), rectBtnMax);
                 graph.FillRectangle(new SolidBrush(btnMaximizeHovered && Form.MaximizeBox ? FlatColors.Gray : HeaderColor), rectBtnMax);
+
+                if (EnableControlBoxIconsLight)
+                {
+                    Drawer.DrawBlurredRectangle(graph, Color.White, rectMaxButtonIcon, 8, 20);
+                }
+
                 graph.DrawRectangle(Form.MaximizeBox ? WhitePen : GrayPen, rectMaxButtonIcon);
 
                 // Кнопка [ _ ]
@@ -347,7 +378,21 @@ namespace yt_DesignUI.Components
                 graph.FillRectangle(new SolidBrush(btnMinimizeHovered && Form.MinimizeBox ? FlatColors.Gray : HeaderColor), rectBtnMin);
                 Point p1 = new Point(rectBtnMin.X + rectBtnMin.Width / 2 - 5, rectBtnMin.Height / 2 + 5);
                 Point p2 = new Point(rectBtnMin.X + rectBtnMin.Width / 2 + 5, rectBtnMin.Height / 2 + 5);
+
+                if (EnableControlBoxIconsLight)
+                {
+                    Drawer.DrawBlurredLine(graph, Color.White, p1, p2, 8, 20);
+                }
+
                 graph.DrawLine(Form.MinimizeBox ? WhitePen : GrayPen, p1, p2);
+
+                // Свечение от курсора
+                if (EnableControlBoxMouseLight && (btnCloseHovered || btnMaximizeHovered || btnMinimizeHovered))
+                {
+                    Point cursorPoint1 = Form.PointToClient(Cursor.Position);
+                    Point cursorPoint2 = new Point(cursorPoint1.X, cursorPoint1.Y + 1);
+                    Drawer.DrawBlurredLine(graph, Color.White, cursorPoint1, cursorPoint2, 10, 70);
+                }
             }
 
             // Обводка
@@ -356,8 +401,37 @@ namespace yt_DesignUI.Components
 
         private void DrawCrosshair(Graphics graph, Rectangle rect, Pen pen)
         {
-            graph.DrawLine(pen, rect.X, rect.Y, rect.X + rect.Width, rect.Y + rect.Height);
-            graph.DrawLine(pen, rect.X + rect.Width, rect.Y, rect.X, rect.Y + rect.Height);
+            if (EnableControlBoxIconsLight)
+            {
+                Drawer.DrawBlurredLine(
+                    graph,
+                    Color.White,
+                    new Point(rect.X, rect.Y),
+                    new Point(rect.X + rect.Width, rect.Y + rect.Height),
+                    8,
+                    20);
+
+                Drawer.DrawBlurredLine(graph,
+                    Color.White,
+                    new Point(rect.X + rect.Width, rect.Y),
+                    new Point(rect.X, rect.Y + rect.Height),
+                    8,
+                    20);
+            }
+
+            graph.DrawLine(
+                pen, 
+                rect.X, 
+                rect.Y, 
+                rect.X + rect.Width, 
+                rect.Y + rect.Height);
+
+            graph.DrawLine(
+                pen, 
+                rect.X + rect.Width, 
+                rect.Y, 
+                rect.X, 
+                rect.Y + rect.Height);
         }
 
         public static void SetDoubleBuffered(Control c)
