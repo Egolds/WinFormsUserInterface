@@ -18,5 +18,41 @@ namespace yt_DesignUI
 
             return gp;
         }
+
+        public static void DrawBlurredLine(Graphics graph, Color lineColor, Point p1, Point p2, int maxAlpha, int penWidth)
+        {
+            float stepAlpha = (float)maxAlpha / penWidth;
+
+            float actualAlpha = stepAlpha;
+            for (int pWidth = penWidth; pWidth > 0; pWidth--)
+            {
+                Color BlurredColor = Color.FromArgb((int)actualAlpha, lineColor);
+                Pen BlurredPen = new Pen(BlurredColor, pWidth);
+                BlurredPen.StartCap = LineCap.Round;
+                BlurredPen.EndCap = LineCap.Round;
+                
+                graph.DrawLine(BlurredPen, p1, p2);
+
+                actualAlpha += stepAlpha;
+            }
+        }
+
+        public static void DrawBlurredRectangle(Graphics graph, Color lineColor, Rectangle rect, int maxAlpha, int penWidth)
+        {
+            float stepAlpha = (float)maxAlpha / penWidth;
+
+            float actualAlpha = stepAlpha;
+            for (int pWidth = penWidth; pWidth > 0; pWidth--)
+            {
+                Color BlurredColor = Color.FromArgb((int)actualAlpha, lineColor);
+                Pen BlurredPen = new Pen(BlurredColor, pWidth);
+                BlurredPen.StartCap = LineCap.Round;
+                BlurredPen.EndCap = LineCap.Round;
+                
+                graph.DrawRectangle(BlurredPen, rect);
+
+                actualAlpha += stepAlpha;
+            }
+        }
     }
 }
