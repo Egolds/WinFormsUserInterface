@@ -108,5 +108,10 @@ namespace yt_DesignUI
         {
             egoldsProgressBar1.Value = trackBar1.Value;
         }
+
+        private void contextExitBtn(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

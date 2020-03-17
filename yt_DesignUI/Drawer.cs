@@ -18,7 +18,7 @@ namespace yt_DesignUI
 
             return gp;
         }
-
+        
         public static void DrawBlurredLine(Graphics graph, Color lineColor, Point p1, Point p2, int maxAlpha, int penWidth)
         {
             float stepAlpha = (float)maxAlpha / penWidth;

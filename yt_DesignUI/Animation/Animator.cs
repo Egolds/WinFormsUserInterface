@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -35,7 +36,7 @@ namespace yt_DesignUI
 
         private static void AnimationInvoker()
         {
-            while (true)
+            while (IsWork)
             {
                 AnimationList.RemoveAll(a => a.Status == Animation.AnimationStatus.Completed);
 
@@ -48,8 +49,9 @@ namespace yt_DesignUI
             }
         }
 
-        public static void Request(Animation Anim, bool ReplaceIfExists)
+        public static void Request(Animation Anim, bool ReplaceIfExists = true)
         {
+            Debug.WriteLine("Запуск анимации: " + Anim.ID + "| TargetValue: " + Anim.TargetValue);
             Anim.Status = Animation.AnimationStatus.Requested;
 
             Animation dupAnim = GetDuplicate(Anim);

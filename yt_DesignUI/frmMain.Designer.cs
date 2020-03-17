@@ -38,7 +38,11 @@
             this.yt_Button1 = new yt_DesignUI.yt_Button();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.egoldsFormStyle1 = new yt_DesignUI.Components.EgoldsFormStyle(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -57,7 +61,7 @@
             // yt_Button5
             // 
             this.yt_Button5.BackColor = System.Drawing.Color.Tomato;
-            this.yt_Button5.Font = new System.Drawing.Font("Verdana", 8.25F);
+            this.yt_Button5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.yt_Button5.ForeColor = System.Drawing.Color.White;
             this.yt_Button5.Location = new System.Drawing.Point(12, 405);
             this.yt_Button5.Name = "yt_Button5";
@@ -73,8 +77,8 @@
             this.egoldsGoogleTextBox1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
             this.egoldsGoogleTextBox1.BorderColorNotActive = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
             this.egoldsGoogleTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.egoldsGoogleTextBox1.Font = new System.Drawing.Font("Arial", 11.25F);
-            this.egoldsGoogleTextBox1.FontTextPreview = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
+            this.egoldsGoogleTextBox1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.egoldsGoogleTextBox1.FontTextPreview = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.egoldsGoogleTextBox1.ForeColor = System.Drawing.Color.Black;
             this.egoldsGoogleTextBox1.Location = new System.Drawing.Point(12, 359);
             this.egoldsGoogleTextBox1.Name = "egoldsGoogleTextBox1";
@@ -103,7 +107,7 @@
             // yt_Button3
             // 
             this.yt_Button3.BackColor = System.Drawing.Color.Tomato;
-            this.yt_Button3.Font = new System.Drawing.Font("Verdana", 8.25F);
+            this.yt_Button3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.yt_Button3.ForeColor = System.Drawing.Color.White;
             this.yt_Button3.Location = new System.Drawing.Point(12, 284);
             this.yt_Button3.Name = "yt_Button3";
@@ -117,9 +121,10 @@
             // 
             this.egoldsCard1.BackColor = System.Drawing.Color.White;
             this.egoldsCard1.BackColorCurtain = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
-            this.egoldsCard1.Font = new System.Drawing.Font("Verdana", 9F);
-            this.egoldsCard1.FontDescrition = new System.Drawing.Font("Verdana", 8.25F);
-            this.egoldsCard1.FontHeader = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold);
+            this.egoldsCard1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.egoldsCard1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.egoldsCard1.FontDescrition = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.egoldsCard1.FontHeader = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.egoldsCard1.ForeColorDescrition = System.Drawing.Color.Black;
             this.egoldsCard1.ForeColorHeader = System.Drawing.Color.White;
             this.egoldsCard1.Location = new System.Drawing.Point(12, 12);
@@ -133,7 +138,7 @@
             // yt_Button1
             // 
             this.yt_Button1.BackColor = System.Drawing.Color.Tomato;
-            this.yt_Button1.Font = new System.Drawing.Font("Verdana", 8.25F);
+            this.yt_Button1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.yt_Button1.ForeColor = System.Drawing.Color.White;
             this.yt_Button1.Location = new System.Drawing.Point(12, 218);
             this.yt_Button1.Name = "yt_Button1";
@@ -155,12 +160,36 @@
             // 
             // egoldsFormStyle1
             // 
+            this.egoldsFormStyle1.AllowUserResize = true;
+            this.egoldsFormStyle1.ContextMenuForm = this.contextMenuStrip1;
             this.egoldsFormStyle1.EnableControlBoxIconsLight = true;
             this.egoldsFormStyle1.EnableControlBoxMouseLight = true;
             this.egoldsFormStyle1.Form = this;
             this.egoldsFormStyle1.FormStyle = yt_DesignUI.Components.EgoldsFormStyle.fStyle.SimpleDark;
             this.egoldsFormStyle1.HeaderColor = System.Drawing.Color.DimGray;
+            this.egoldsFormStyle1.HeaderFont = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.egoldsFormStyle1.HeaderHeight = 38;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.testToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(97, 48);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.contextExitBtn);
+            // 
+            // testToolStripMenuItem
+            // 
+            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.testToolStripMenuItem.Text = "Test";
             // 
             // frmMain
             // 
@@ -176,10 +205,12 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.egoldsCard1);
             this.Controls.Add(this.yt_Button1);
+            this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Главная форма";
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -196,6 +227,9 @@
         private yt_Button yt_Button5;
         private System.Windows.Forms.TrackBar trackBar1;
         private Components.EgoldsFormStyle egoldsFormStyle1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }
 
