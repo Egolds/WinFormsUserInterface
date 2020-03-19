@@ -13,19 +13,6 @@ namespace yt_DesignUI
     [DefaultProperty("TextPreview")]
     public class EgoldsGoogleTextBox : Control
     {
-        #region -- Переменные --
-
-        StringFormat SF = new StringFormat();
-
-        int TopBorderOffset = 0;
-
-        TextBox tbInput = new TextBox();
-
-        Animation LocationTextPreviewAnim = new Animation();
-        Animation FontSizeTextPreviewAnim = new Animation();
-
-        #endregion
-
         #region -- Свойства --
 
         public string TextPreview { get; set; } = "Input text";
@@ -75,6 +62,30 @@ namespace yt_DesignUI
                 Refresh();
             }
         }
+
+        #endregion
+
+        #region -- События / Events --
+
+        [Browsable(true)]
+        public new event EventHandler TextChanged
+        {
+            add { tbInput.TextChanged += value; }
+            remove { tbInput.TextChanged -= value; }
+        }
+
+        #endregion
+
+        #region -- Переменные --
+
+        StringFormat SF = new StringFormat();
+
+        int TopBorderOffset = 0;
+
+        TextBox tbInput = new TextBox();
+
+        Animation LocationTextPreviewAnim = new Animation();
+        Animation FontSizeTextPreviewAnim = new Animation();
 
         #endregion
 
@@ -244,6 +255,8 @@ namespace yt_DesignUI
 
             TextPreviewAction(true);
         }
+
+
 
         /// <summary>
         /// В этом классе переопределяем SelectionRules, и даем возможность только изменять ширину и перемещать объект
