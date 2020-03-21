@@ -2,7 +2,6 @@
 # Данный GITIGNORE-файл был автоматически создан Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs
 /yt_DesignUI/obj
-/yt_DesignUI/bin/Debug/yt_DesignUI.pdb
 /yt_DesignUI/bin/Debug
+/.vs
