@@ -34,7 +34,7 @@ namespace yt_DesignUI
             get => roundingPercent;
             set
             {
-                if(value >= 0 && value <= 100)
+                if (value >= 0 && value <= 100)
                 {
                     roundingPercent = value;
 
@@ -98,7 +98,7 @@ namespace yt_DesignUI
 
             // Закругление
             float roundingValue = 0.1F;
-            if(RoundingEnable && roundingPercent > 0)
+            if (RoundingEnable && roundingPercent > 0)
             {
                 roundingValue = Height / 100F * roundingPercent;
             }
@@ -122,15 +122,23 @@ namespace yt_DesignUI
             //}
 
             // Ripple Effect - Волна
-            if(RippleButtonAnim.Value > 0 && RippleButtonAnim.Value < RippleButtonAnim.TargetValue)
+            if (RippleButtonAnim.Value > 0 && RippleButtonAnim.Value < RippleButtonAnim.TargetValue)
             {
                 graph.DrawEllipse(new Pen(Color.FromArgb(30, Color.Black)), rectRipple);
                 graph.FillEllipse(new SolidBrush(Color.FromArgb(30, Color.Black)), rectRipple);
             }
-            else if(RippleButtonAnim.Value == RippleButtonAnim.TargetValue)
+            else if (RippleButtonAnim.Value == RippleButtonAnim.TargetValue)
             {
                 // Тут можно добавить проверку MousePressed, если false тогда обнуляем
-                RippleButtonAnim.Value = 0;
+                if (MousePressed == false)
+                {
+                    RippleButtonAnim.Value = 0;
+                }
+                else
+                {
+                    graph.DrawEllipse(new Pen(Color.FromArgb(30, Color.Black)), rectRipple);
+                    graph.FillEllipse(new SolidBrush(Color.FromArgb(30, Color.Black)), rectRipple);
+                }
             }
 
             // Рисуем текст
@@ -222,6 +230,8 @@ namespace yt_DesignUI
             base.OnMouseUp(e);
 
             MousePressed = false;
+
+            Invalidate();
         }
     }
 }
