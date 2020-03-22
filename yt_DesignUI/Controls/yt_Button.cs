@@ -43,6 +43,9 @@ namespace yt_DesignUI
             }
         }
 
+        [Description("Вкл/Выкл эффект нажатия кнопки.")]
+        public bool UseDownPressEffectOnClick { get; set; }
+
         #endregion
 
         #region -- Переменные --
@@ -68,6 +71,8 @@ namespace yt_DesignUI
             Size = new Size(100, 30);
 
             Font = new Font("Verdana", 8.25F, FontStyle.Regular);
+
+            Cursor = Cursors.Hand;
 
             BackColor = Color.Tomato;
             ForeColor = Color.White;
@@ -222,6 +227,8 @@ namespace yt_DesignUI
             ClickLocation = e.Location;
             ButtonRippleAction();
 
+            Location = new Point(Location.X, Location.Y + 2);
+
             Focus();
         }
 
@@ -232,6 +239,8 @@ namespace yt_DesignUI
             MousePressed = false;
 
             Invalidate();
+
+            Location = new Point(Location.X, Location.Y - 2);
         }
     }
 }
