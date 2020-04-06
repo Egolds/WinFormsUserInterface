@@ -20,6 +20,9 @@ namespace yt_DesignUI
             set
             {
                 _checked = value;
+
+                SwitchToggle();
+
                 UpdateSize();
                 UpdateStructures();
             }
@@ -114,13 +117,13 @@ namespace yt_DesignUI
             graph.SmoothingMode = SmoothingMode.HighQuality;
             graph.Clear(Parent.BackColor);
 
-            Pen penToggleHolder = new Pen(FlatColors.GrayDark, 2);
+            Pen penToggleHolder = new Pen(FlatColors.GrayDark, 1.55f);
             Pen penToggle = new Pen(FlatColors.GrayDark, 3);
             
             GraphicsPath gpathToggle = Drawer.RoundedRectangle(rectToggleHolder, rectToggleHolder.Height);
             Rectangle rectToggle = new Rectangle((int)ToggleAnim.Value, rectToggleHolder.Y, rectToggleHolder.Height, rectToggleHolder.Height);
             
-            graph.DrawPath(penToggle, gpathToggle);
+            graph.DrawPath(penToggleHolder, gpathToggle);
 
             if (Checked == true)
             {
@@ -151,10 +154,10 @@ namespace yt_DesignUI
         {
             base.OnMouseDown(e);
 
-            SwitchToggle();
+            SwitchToggle(true);
         }
 
-        private void SwitchToggle()
+        private void SwitchToggle(bool OnClick = false)
         {
             if (Checked == true)
             {
@@ -165,7 +168,10 @@ namespace yt_DesignUI
                 ToggleAnim = new Animation("Toggle_" + Handle, Invalidate, ToggleAnim.Value, TogglePosX_ON);
             }
 
-            Checked = !Checked;
+            if (OnClick)
+            {
+                Checked = !Checked;
+            }
 
             ToggleAnim.StepDivider = 8;
             Animator.Request(ToggleAnim, true);
