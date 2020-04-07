@@ -154,23 +154,18 @@ namespace yt_DesignUI
         {
             base.OnMouseDown(e);
 
-            SwitchToggle(true);
+            Checked = !Checked;
         }
 
-        private void SwitchToggle(bool OnClick = false)
+        private void SwitchToggle()
         {
             if (Checked == true)
             {
-                ToggleAnim = new Animation("Toggle_" + Handle, Invalidate, ToggleAnim.Value, TogglePosX_OFF);
+                ToggleAnim = new Animation("Toggle_" + Handle, Invalidate, ToggleAnim.Value, TogglePosX_ON);
             }
             else
             {
-                ToggleAnim = new Animation("Toggle_" + Handle, Invalidate, ToggleAnim.Value, TogglePosX_ON);
-            }
-
-            if (OnClick)
-            {
-                Checked = !Checked;
+                ToggleAnim = new Animation("Toggle_" + Handle, Invalidate, ToggleAnim.Value, TogglePosX_OFF);
             }
 
             ToggleAnim.StepDivider = 8;
