@@ -8,10 +8,13 @@ namespace EgoldsUI
         public static Color GreenDark = ColorTranslator.FromHtml("#27ae60");
 
         public static Color Red = ColorTranslator.FromHtml("#e74c3c");
+        public static Color Red2 = ColorTranslator.FromHtml("#e81123");
         public static Color RedDark = ColorTranslator.FromHtml("#c0392b");
 
         public static Color Blue = ColorTranslator.FromHtml("#3498db");
         public static Color BlueDark = ColorTranslator.FromHtml("#2980b9");
+
+        public static Color MidnightBlue = ColorTranslator.FromHtml("#2c3e50");
 
         public static Color Orange = ColorTranslator.FromHtml("#e67e22");
         public static Color OrangeDark = ColorTranslator.FromHtml("#d35400");
@@ -25,5 +28,8 @@ namespace EgoldsUI
         public static Color Gray = ColorTranslator.FromHtml("#bdc3c7");
         public static Color GrayDark = ColorTranslator.FromHtml("#7f8c8d");
         public static Color GrayLight = ColorTranslator.FromHtml("#ecf0f1");
+        public static Color GrayLight2 = ColorTranslator.FromHtml("#f1f1f1");
+
+        public static Color WetAsphalt = ColorTranslator.FromHtml("#34495e");
     }
 }

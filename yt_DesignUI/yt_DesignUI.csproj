@@ -53,6 +53,7 @@
     <Compile Include="Components\EgoldsFormStyle.Designer.cs">
       <DependentUpon>EgoldsFormStyle.cs</DependentUpon>
     </Compile>
+    <Compile Include="Components\EgoldsStyle.cs" />
     <Compile Include="Components\RoundingButtonsComponent.cs">
       <SubType>Component</SubType>
     </Compile>

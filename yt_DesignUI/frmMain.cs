@@ -11,6 +11,7 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using yt_DesignUI.Components;
 using yt_DesignUI.Controls;
 
 namespace yt_DesignUI
@@ -24,52 +25,20 @@ namespace yt_DesignUI
             buttonAnim.Value = button1.Width;
             Animator.Start();
 
-            //DoubleBuffered = true;
+
+            if (cmbStyle.Items.Count == 0)
+            {
+                EgoldsFormStyle.fStyle selectedStyle = egoldsFormStyle1.FormStyle;
+                cmbStyle.DataSource = Enum.GetValues(typeof(EgoldsFormStyle.fStyle));
+                cmbStyle.SelectedItem = selectedStyle;
+            }
         }
 
         private void yt_Button1_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Моя кнопка!");
         }
-
-        bool on = false;
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //Graphics graph = pictureBox1.CreateGraphics();
-
-            //Pen pen = new Pen(new SolidBrush(EgoldsUI.FlatColors.GrayDark), 3);
-            //Pen penButton = new Pen(new SolidBrush(EgoldsUI.FlatColors.GrayDark), 3);
-
-            //Rectangle rect = new Rectangle(10, 10, 250, 98);
-            //Rectangle rectButton = new Rectangle(10, 10, rect.Height, rect.Height);
-            //int radius = 98;
-
-            //var gp = new GraphicsPath();
-            //graph.SmoothingMode = SmoothingMode.HighQuality;
-            //graph.Clear(Color.White);
-
-            //gp.AddArc(rect.X, rect.Y, radius, radius, 180, 90);
-            //gp.AddArc(rect.X + rect.Width - radius, rect.Y, radius, radius, 270, 90);
-            //gp.AddArc(rect.X + rect.Width - radius, rect.Y + rect.Height - radius, radius, radius, 0, 90);
-            //gp.AddArc(rect.X, rect.Y + rect.Height - radius, radius, radius, 90, 90);
-            //gp.CloseFigure();
-
-            //var gpv = RoundedRect(rect, 98);
-
-            //graph.DrawPath(pen, gpv);
-            //graph.FillPath(new SolidBrush(Color.Tomato), gpv);
-
-            //graph.DrawEllipse(penButton, rectButton);
-            //graph.FillEllipse(new SolidBrush(Color.White), rectButton);
-        }
         
-        private void egoldsToogleSwitch2_Validated(object sender, EventArgs e)
-        {
-
-        }
-
-
         Animation buttonAnim = new Animation();
         int BtnWidthTarget = 150;
         int BtnWidthBase = 75;
@@ -112,6 +81,23 @@ namespace yt_DesignUI
         private void contextExitBtn(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        int i = 0;
+        private void yt_Button5_Click(object sender, EventArgs e)
+        {
+            i++;
+            yt_Button1.Text = i.ToString();
+        }
+
+        private void cmbStyle_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            egoldsFormStyle1.FormStyle = (EgoldsFormStyle.fStyle)cmbStyle.SelectedItem;
+        }
+
+        private void btnFlatButton_Click(object sender, EventArgs e)
+        {
+            egoldsToggleSwitch1.Checked = !egoldsToggleSwitch1.Checked;
         }
     }
 }

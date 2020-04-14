@@ -23,7 +23,7 @@ namespace yt_DesignUI
         public static void Start()
         {
             IsWork = true;
-            Interval = 15; // FPS ~65
+            Interval = 14; // FPS ~66
 
             AnimatorThread = new Thread(AnimationInvoker)
             {
@@ -38,7 +38,7 @@ namespace yt_DesignUI
         {
             while (IsWork)
             {
-                AnimationList.RemoveAll(a => a.Status == Animation.AnimationStatus.Completed);
+                AnimationList.RemoveAll(a => a == null || a.Status == Animation.AnimationStatus.Completed);
 
                 Parallel.For(0, Count(), index =>
                 {
