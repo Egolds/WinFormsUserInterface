@@ -12,6 +12,18 @@ namespace yt_DesignUI
     {
         #region -- Свойства --
 
+        [Description("Цвет обводки (границы) кнопки")]
+        public Color BorderColor { get; set; } = Color.Tomato;
+        
+        [Description("Указывает, включено ли использование отдельного цвета обводки (границы) кнопки")]
+        public bool BorderColorEnabled { get; set; } = false;
+
+        [Description("Цвет обводки (границы) кнопки при наведении курсора")]
+        public Color BorderColorOnHover { get; set; } = Color.Tomato;
+
+        [Description("Указывает, включено ли использование отдельного цвета обводки (границы) кнопки при наведении курсора")]
+        public bool BorderColorOnHoverEnabled { get; set; } = false;
+
         [Description("Дополнительный фоновый цвет кнопки используемый для создания градиента (При BackColorGradientEnabled = true)")]
         public Color BackColorAdditional { get; set; } = Color.Gray;
 
@@ -57,8 +69,13 @@ namespace yt_DesignUI
         [Description("Вкл/Выкл эффект волны по нажатию кнопки курсором.")]
         public bool UseRippleEffect { get; set; } = true;
 
+        [Description("Цвет эффекта волны по нажатию кнопки курсором")]
+        public Color RippleColor { get; set; } = Color.Black;
+
         [Description("Вкл/Выкл эффект нажатия кнопки.")]
         public bool UseDownPressEffectOnClick { get; set; }
+
+        public bool UseZoomEffectOnHover { get; set; }
 
         public override string Text
         {
@@ -101,6 +118,7 @@ namespace yt_DesignUI
             Cursor = Cursors.Hand;
 
             BackColor = Color.Tomato;
+            BorderColor = BackColor;
             ForeColor = Color.White;
 
             SF.Alignment = StringAlignment.Center;
@@ -144,8 +162,17 @@ namespace yt_DesignUI
                     headerBrush = new LinearGradientBrush(rect, BackColor, BackColorAdditional, BackColorGradientMode);
             }
 
+            Brush borderBrush = headerBrush;
+            if (BorderColorEnabled)
+            {
+                borderBrush = new SolidBrush(BorderColor);
+
+                if (MouseEntered && BorderColorOnHoverEnabled)
+                    borderBrush = new SolidBrush(BorderColorOnHover);
+            }
+
             // Основной прямоугольник (Фон)
-            graph.DrawPath(new Pen(headerBrush), rectPath);
+            graph.DrawPath(new Pen(borderBrush), rectPath);
             graph.FillPath(headerBrush, rectPath);
 
             graph.SetClip(rectPath);
@@ -182,8 +209,8 @@ namespace yt_DesignUI
 
                     if (MultiRippleButtonAnim.Value > 0 && MultiRippleButtonAnim.Value < MultiRippleButtonAnim.TargetValue)
                     {
-                        graph.DrawEllipse(new Pen(Color.FromArgb(30, Color.Black)), rectMultiRipple);
-                        graph.FillEllipse(new SolidBrush(Color.FromArgb(30, Color.Black)), rectMultiRipple);
+                        graph.DrawEllipse(new Pen(Color.FromArgb(30, RippleColor)), rectMultiRipple);
+                        graph.FillEllipse(new SolidBrush(Color.FromArgb(30, RippleColor)), rectMultiRipple);
                     }
                     else if (MultiRippleButtonAnim.Value == MultiRippleButtonAnim.TargetValue)
                     {
@@ -196,8 +223,8 @@ namespace yt_DesignUI
                         {
                             if (i == RippleButtonAnimDic.Count - 1)
                             {
-                                graph.DrawEllipse(new Pen(Color.FromArgb(30, Color.Black)), rectMultiRipple);
-                                graph.FillEllipse(new SolidBrush(Color.FromArgb(30, Color.Black)), rectMultiRipple);
+                                graph.DrawEllipse(new Pen(Color.FromArgb(30, RippleColor)), rectMultiRipple);
+                                graph.FillEllipse(new SolidBrush(Color.FromArgb(30, RippleColor)), rectMultiRipple);
                             }
                         }
                     }
@@ -295,6 +322,14 @@ namespace yt_DesignUI
 
             MouseEntered = true;
 
+            if (UseZoomEffectOnHover)
+            {
+                Rectangle buttonRect = new Rectangle(Location, Size);
+                buttonRect.Inflate(1, 1);
+                Location = buttonRect.Location;
+                Size = buttonRect.Size;
+            }
+
             ButtonCurtainAction();
             TextSlideAction();
         }
@@ -305,8 +340,17 @@ namespace yt_DesignUI
 
             MouseEntered = false;
 
+            if (UseZoomEffectOnHover)
+            {
+                Rectangle buttonRect = new Rectangle(Location, Size);
+                buttonRect.Inflate(-1, -1);
+                Location = buttonRect.Location;
+                Size = buttonRect.Size;
+            }
+
             ButtonCurtainAction();
             TextSlideAction();
+            
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
