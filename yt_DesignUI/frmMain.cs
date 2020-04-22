@@ -99,5 +99,29 @@ namespace yt_DesignUI
         {
             egoldsToggleSwitch1.Checked = !egoldsToggleSwitch1.Checked;
         }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            switch (btnGradient.BackColorGradientMode)
+            {
+                case LinearGradientMode.ForwardDiagonal:
+                    btnGradient.BackColorGradientMode = LinearGradientMode.Vertical;
+                    break;
+
+                case LinearGradientMode.Vertical:
+                    btnGradient.BackColorGradientMode = LinearGradientMode.BackwardDiagonal;
+                    break;
+
+                case LinearGradientMode.BackwardDiagonal:
+                    btnGradient.BackColorGradientMode = LinearGradientMode.Horizontal;
+                    break;
+
+                case LinearGradientMode.Horizontal:
+                    btnGradient.BackColorGradientMode = LinearGradientMode.ForwardDiagonal;
+                    break;
+            }
+
+            btnGradient.Refresh();
+        }
     }
 }
