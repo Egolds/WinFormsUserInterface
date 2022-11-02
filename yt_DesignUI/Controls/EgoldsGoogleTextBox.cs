@@ -74,6 +74,13 @@ namespace yt_DesignUI
             remove { tbInput.TextChanged -= value; }
         }
 
+        [Browsable(true)]
+        public new event KeyPressEventHandler KeyPress
+        {
+            add { tbInput.KeyPress += value; }
+            remove { tbInput.KeyPress -= value; }
+        }
+
         #endregion
 
         #region -- Переменные --

@@ -22,6 +22,8 @@ namespace yt_DesignUI
         
         public static void Start()
         {
+            if (IsWork) return;
+
             IsWork = true;
             Interval = 14; // FPS ~66
 
@@ -51,6 +53,11 @@ namespace yt_DesignUI
 
         public static void Request(Animation Anim, bool ReplaceIfExists = true)
         {
+            if(AnimatorThread == null || IsWork == false)
+            {
+                Start();
+            }
+
             Debug.WriteLine("Запуск анимации: " + Anim.ID + "| TargetValue: " + Anim.TargetValue);
             Anim.Status = Animation.AnimationStatus.Requested;
 

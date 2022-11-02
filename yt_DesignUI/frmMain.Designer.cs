@@ -49,6 +49,7 @@
             this.yt_Button6 = new yt_DesignUI.yt_Button();
             this.yt_Button7 = new yt_DesignUI.yt_Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.yt_Button2 = new yt_DesignUI.yt_Button();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -308,6 +309,7 @@
             this.yt_Button4.UseDownPressEffectOnClick = true;
             this.yt_Button4.UseRippleEffect = true;
             this.yt_Button4.UseZoomEffectOnHover = false;
+            this.yt_Button4.Click += new System.EventHandler(this.yt_Button4_Click);
             // 
             // yt_Button5
             // 
@@ -393,12 +395,38 @@
             this.timer1.Interval = 50;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // yt_Button2
+            // 
+            this.yt_Button2.BackColor = System.Drawing.Color.Tomato;
+            this.yt_Button2.BackColorAdditional = System.Drawing.Color.Gray;
+            this.yt_Button2.BackColorGradientEnabled = false;
+            this.yt_Button2.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.yt_Button2.BorderColor = System.Drawing.Color.Tomato;
+            this.yt_Button2.BorderColorEnabled = false;
+            this.yt_Button2.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.yt_Button2.BorderColorOnHoverEnabled = false;
+            this.yt_Button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.yt_Button2.Font = new System.Drawing.Font("Verdana", 8.25F);
+            this.yt_Button2.ForeColor = System.Drawing.Color.White;
+            this.yt_Button2.Location = new System.Drawing.Point(202, 348);
+            this.yt_Button2.Name = "yt_Button2";
+            this.yt_Button2.RippleColor = System.Drawing.Color.Black;
+            this.yt_Button2.RoundingEnable = true;
+            this.yt_Button2.Size = new System.Drawing.Size(217, 49);
+            this.yt_Button2.TabIndex = 26;
+            this.yt_Button2.Text = "yt_Button2";
+            this.yt_Button2.TextHover = null;
+            this.yt_Button2.UseDownPressEffectOnClick = false;
+            this.yt_Button2.UseRippleEffect = true;
+            this.yt_Button2.UseZoomEffectOnHover = false;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(872, 459);
+            this.Controls.Add(this.yt_Button2);
             this.Controls.Add(this.yt_Button7);
             this.Controls.Add(this.yt_Button6);
             this.Controls.Add(this.yt_Button5);
@@ -447,6 +475,7 @@
         private yt_Button yt_Button6;
         private yt_Button yt_Button7;
         private System.Windows.Forms.Timer timer1;
+        private yt_Button yt_Button2;
     }
 }
 

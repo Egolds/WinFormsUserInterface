@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using EgoldsUI;
 using System.Drawing.Imaging;
+using System.Reflection;
 
 namespace yt_DesignUI.Components
 {
@@ -96,6 +97,9 @@ namespace yt_DesignUI.Components
 
         #endregion
         #region -- Поля --
+
+        private List<Control> FormControls = new List<Control>();
+        private Panel MainContainer = null;
 
         private Dictionary<fStyle, EgoldsStyle> StylesDictionary; // Словарь вида: <Стиль из набора, Объект стиля с параметрами>
         private EgoldsStyle CurrentStyle; // Актуальный стиль, класс с его параметрамы
@@ -230,6 +234,7 @@ namespace yt_DesignUI.Components
                 EgoldsStyle NoneStyle = StylesDictionary[fStyle.None];
 
                 NoneStyle.FormBorderStyle = Form.FormBorderStyle;
+                NoneStyle.BackColor = Form.BackColor;
             }
         }
 
@@ -278,6 +283,7 @@ namespace yt_DesignUI.Components
             SaveNoneStyleConfig();
             SaveUserStyleConfig();
 
+            MigrateControls();
             SetStyle(FormStyle);
             StyleUsed = true;
 
@@ -299,8 +305,10 @@ namespace yt_DesignUI.Components
             Form.SizeChanged += Form_SizeChanged;
             Form.DoubleClick += Form_DoubleClick;
             Form.Click += Form_Click;
+            Form.BackColorChanged += Form_BackColorChanged;
+            
         }
-
+        
         /// <summary>
         /// Изменение стиля
         /// </summary>
@@ -312,7 +320,8 @@ namespace yt_DesignUI.Components
 
             if (StyleUsed)
             {
-                OffsetControls(-HeaderHeight);
+                //OffsetControls(-HeaderHeight);
+                OffsetMainContrainer(-HeaderHeight);
                 Form.Height -= HeaderHeight;
             }
 
@@ -329,7 +338,8 @@ namespace yt_DesignUI.Components
 
             Form.BackColor = BackColor;
 
-            OffsetControls(HeaderHeight);
+            //OffsetControls(HeaderHeight);
+            OffsetMainContrainer(HeaderHeight);
 
             Form.Height += HeaderHeight;
             Form.Refresh();
@@ -352,6 +362,38 @@ namespace yt_DesignUI.Components
             }
         }
 
+        private void MigrateControls()
+        {
+            // Определение панели-контейнера
+            MainContainer = new Panel();
+            MainContainer.BackColor = Form.BackColor;
+            MainContainer.Location = new Point(1, HeaderHeight + 1);
+            ChangeMainContainerSize();
+
+            // Перенос контролов на отдельную панель
+
+            if (FormControls.Count == 0)
+                FormControls.AddRange(Form.Controls.OfType<Control>());
+
+            Form.Controls.Clear();
+
+            if (FormControls.Count > 0)
+                MainContainer.Controls.AddRange(FormControls.ToArray());
+
+            Form.Controls.Add(MainContainer);
+        }
+
+        private void OffsetMainContrainer(int offset)
+        {
+            MainContainer.Location = new Point(MainContainer.Location.X, MainContainer.Location.Y + offset);
+            MainContainer.Refresh();
+        }
+
+        private void ChangeMainContainerSize()
+        {
+            MainContainer.Size = new Size(Form.Width - 2, Form.Height - HeaderHeight - 2);
+        }
+
         #region -- Form Events --
 
         // В этом событии выполняется раньше чем в Load
@@ -369,6 +411,12 @@ namespace yt_DesignUI.Components
         private void Form_SizeChanged(object sender, EventArgs e)
         {
             Form.Refresh();
+            ChangeMainContainerSize();
+        }
+
+        private void Form_BackColorChanged(object sender, EventArgs e)
+        {
+            MainContainer.BackColor = Form.BackColor;
         }
 
         private void Form_MouseLeave(object sender, EventArgs e)

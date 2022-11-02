@@ -123,5 +123,13 @@ namespace yt_DesignUI
 
             btnGradient.Refresh();
         }
+
+        private int clickscount = 0;
+        private void yt_Button4_Click(object sender, EventArgs e)
+        {
+            clickscount++;
+            egoldsCard1.Text = clickscount.ToString();
+            egoldsCard1.Invalidate();
+        }
     }
 }

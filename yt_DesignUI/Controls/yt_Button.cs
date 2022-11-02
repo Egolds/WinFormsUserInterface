@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace yt_DesignUI
 {
-    public class yt_Button : Control
+    public class yt_Button : Button
     {
         #region -- Свойства --
 
@@ -108,7 +108,17 @@ namespace yt_DesignUI
 
         public yt_Button()
         {
-            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw | ControlStyles.SupportsTransparentBackColor | ControlStyles.UserPaint, true);
+            SetStyle(
+                ControlStyles.AllPaintingInWmPaint |
+                ControlStyles.OptimizedDoubleBuffer |
+                ControlStyles.ResizeRedraw |
+                ControlStyles.SupportsTransparentBackColor |
+                ControlStyles.UserPaint |
+                ControlStyles.Opaque |
+                ControlStyles.Selectable |
+                ControlStyles.UserMouse |
+                ControlStyles.EnableNotifyMessage,
+                true);
             DoubleBuffered = true;
 
             Size = new Size(100, 30);
@@ -132,6 +142,8 @@ namespace yt_DesignUI
             Graphics graph = e.Graphics;
             graph.SmoothingMode = SmoothingMode.HighQuality;
             graph.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            graph.PixelOffsetMode = PixelOffsetMode.HighQuality;
+            graph.SmoothingMode = SmoothingMode.AntiAlias;
 
             graph.Clear(Parent.BackColor);
             
@@ -153,7 +165,14 @@ namespace yt_DesignUI
                 roundingValue = Height / 100F * roundingPercent;
             }
             GraphicsPath rectPath = Drawer.RoundedRectangle(rect, roundingValue);
-            
+
+            //Rectangle regionRect = rect;
+            //regionRect.Inflate(1, 1);
+            //GraphicsPath regionPath = Drawer.RoundedRectangle(regionRect, roundingValue);
+            //Region = new Region(regionPath);
+            Region = new Region(rectPath);
+            graph.Clear(Parent.BackColor);
+
 
             Brush headerBrush = new SolidBrush(BackColor);
             if (BackColorGradientEnabled)
@@ -386,6 +405,12 @@ namespace yt_DesignUI
             base.OnTextChanged(e);
 
             //Invalidate();
+        }
+
+        protected override void OnParentBackColorChanged(EventArgs e)
+        {
+            Invalidate();
+            base.OnParentBackColorChanged(e);
         }
     }
 }
